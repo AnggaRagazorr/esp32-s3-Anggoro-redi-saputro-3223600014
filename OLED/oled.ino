@@ -1,10 +1,7 @@
-
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define SDA_PIN 8
-#define SCL_PIN 9
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 
 void taskOLED(void *pvParameters) {
@@ -12,15 +9,18 @@ void taskOLED(void *pvParameters) {
     display.clearDisplay();
     display.setTextSize(1);
     display.setTextColor(SSD1306_WHITE);
-    display.setCursor(10, 25);
-    display.println("OLED Test OK!");
+    display.setCursor(10, 20);
+    display.println("ESP32-S3 OLED OK!");
     display.display();
+    Serial.print("OLED Task running on Core: ");
+    Serial.println(xPortGetCoreID());
     delay(1000);
   }
 }
 
 void setup() {
-  Wire.begin(SDA_PIN, SCL_PIN);
+  Serial.begin(115200);
+  Wire.begin(8, 9); // SDA, SCL
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
   // Core 0
