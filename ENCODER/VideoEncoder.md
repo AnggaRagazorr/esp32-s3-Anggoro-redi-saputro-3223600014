@@ -1,4 +1,4 @@
-Video Demo
+Video Demo Core 1 & Core 2
 
 | Komponen  | Link Video                                            |
 | --------- | ----------------------------------------------------- |
