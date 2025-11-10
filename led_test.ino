@@ -9,7 +9,10 @@ void taskLED(void *pvParameters) {
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
+  //core 0
   xTaskCreatePinnedToCore(taskLED, "LED_Task", 1000, NULL, 1, NULL, 0); 
+  //core 1
+  //xTaskCreatePinnedToCore(taskLED, "LED_Task", 1000, NULL, 1, NULL, 1); 
   
 }
 void loop() {}
