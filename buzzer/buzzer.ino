@@ -3,17 +3,23 @@
 void taskBuzzer(void *pvParameters) {
   while (1) {
     digitalWrite(BUZZER, HIGH);
-    delay(200);
+    Serial.print("Buzzer task running on Core: ");
+    Serial.println(xPortGetCoreID());
+    delay(300);
     digitalWrite(BUZZER, LOW);
-    delay(200);
+    delay(300);
   }
 }
 
 void setup() {
+  Serial.begin(115200);
   pinMode(BUZZER, OUTPUT);
-  //core0
-  xTaskCreatePinnedToCore(taskBuzzer, "Buzzer_Task", 1000, NULL, 1, NULL, 0);
- //core1
-//xTaskCreatePinnedToCore(taskBuzzer, "Buzzer_Task", 1000, NULL, 1, NULL, 1);
+
+  // Core 0
+  xTaskCreatePinnedToCore(taskBuzzer, "taskBuzzer_Core0", 1000, NULL, 1, NULL, 0);
+
+  // Core 1
+  // xTaskCreatePinnedToCore(taskBuzzer, "taskBuzzer_Core1", 1000, NULL, 1, NULL, 1);
 }
+
 void loop() {}
