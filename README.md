@@ -1,5 +1,5 @@
 # esp32-s3-Anggoro-redi-saputro-3223600014
-Matakuliah Sistem Embedded Dual Core ESP32-S3
+Matakuliah Sistem Embedded konsep multitasking dan dual-core processing pada mikrokontroler ESP32-S3
 Anggoro redi saputro - 3223600014 - 3 D4 Teknik Komputer A
 
 pin yang di gunakan
@@ -23,4 +23,22 @@ ____________________________________________________
 | Stepper A-         | 40           | Output coil  |
 ____________________________________________________
 
+Penjelasan Fungsi xTaskCreatePinnedToCore()
+Fungsi ini adalah bagian penting dari FreeRTOS yang digunakan untuk membuat task baru dan menentukan core mana yang akan menjalankannya.
+xTaskCreatePinnedToCore(
+  function_name,    // Nama fungsi task
+  task_name,        // Nama identifikasi task
+  stack_size,       // Ukuran stack task (byte)
+  task_parameter,   // Parameter tambahan (biasanya NULL)
+  priority,         // Prioritas task
+  task_handle,      // Pointer ke handle task (bisa NULL)
+  core_ID           // Nomor core (0 atau 1)
+);
 
+Contoh : xTaskCreatePinnedToCore(taskLED, "taskLED_Core0", 1000, NULL, 1, NULL, 0);
+
+Perbedaan Core 0 dan Core 1
+| Core       | Fungsi Utama                            | Keterangan                                                  |
+| ---------- | --------------------------------------- | ----------------------------------------------------------- |
+| **Core 0** | Sistem, Wi-Fi, Bluetooth, task tambahan | Dapat digunakan untuk tugas rutin atau proses berat         |
+| **Core 1** | Program utama (Arduino loop, setup)     | Biasanya digunakan untuk task utama seperti UI, sensor, dsb |
